@@ -1,0 +1,67 @@
+\documentclass[12pt,twoside,onecolumn]{article}
+
+\usepackage{a4}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{pdfpages}
+\usepackage{apacite}
+\usepackage{jneurosci}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[norsk]{babel}
+\usepackage{subfiles} % Handeling multiple chapters on seperate files.
+\usepackage{graphicx}  % for displaying figures
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{amsmath} % math package
+\usepackage{relsize} % to use larger math symbols
+\usepackage{amssymb} % for using blackboard letters (e.g R for real numbers)
+\usepackage{tocbibind} % for adding the reference section in table of contents
+\usepackage{fixltx2e} % for text in sub script
+\usepackage{perpage} % for resetting footnote counter at each page
+\usepackage{csquotes}
+\usepackage{epigraph}
+\usepackage{ragged2e}
+
+\MakePerPage{footnote} %the perpage package command
+
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{Figur}
+}
+
+\makeatletter
+\def\@documentnocite#1{\@bsphack
+  \@for\@citeb:=#1\do{%
+    \edef\@citeb{\expandafter\@firstofone\@citeb}%
+    \if@filesw\immediate\write\@auxout{\string\citation{\@citeb}}\fi
+    \@ifundefined{b@\@citeb}{\G@refundefinedtrue
+      \@latex@warning{Citation `\@citeb' undefined}}{}}%
+  \@esphack}
+\AtBeginDocument{\let\nocite\@documentnocite}
+\makeatother
+
+\begin{document}
+\pagenumbering{roman} 
+% Front page with uio logo - remember to fix the logo
+\subfile{frontpage}
+
+\newpage\null\newpage
+\pagenumbering{arabic} 
+
+\tableofcontents
+
+\subfile{chapter1}
+
+%\subfile{chapter2}
+
+%\subfile{chapter3}
+
+%\subfile{chapter4}
+
+% Biblography
+\newpage\null
+\subfile{biblo}
+
+\newpage\null
+\thispagestyle{empty}
+\newpage
+\end{document}
