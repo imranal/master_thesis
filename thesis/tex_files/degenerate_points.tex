@@ -1,0 +1,137 @@
+% !TEX spellcheck = en
+\documentclass[12pt,twoside,onecolumn]{article}
+\usepackage{a4}
+\usepackage[margin=0.95in]{geometry}
+\usepackage[latin1]{inputenc}  % Bruk latin-1 tegnsett
+\usepackage[UKenglish]{babel}  
+\usepackage{hyperref}  % for making links click-able
+\usepackage{amsmath} % math package
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\begin{document}
+
+\section{Analytical Tensor Fields}
+Given the symmetric second rank tensor
+\begin{align*} 
+T&=
+\begin{bmatrix}
+    T_{11} &  T_{12} \\
+    T_{12}  &  T_{22}
+\end{bmatrix},
+\end{align*}
+For this tensor field, degenerate points satisfy the condition
+\begin{align} \label{degenerate_cond}
+\left\{\begin{matrix}
+ \frac{T_{11} - T_{22}}{2} &=0 \\
+ T_{12} &=0
+\end{matrix}\right.
+\end{align}
+Assume that the tensor components can be expressed in the vicinity of degenerate point 
+$\vec{x}_0 = (x_0,y_0)$ as Taylor expansions that start with homogeneous polynomials 
+for $m > 0$
+\begin{align}
+\left\{\begin{matrix}
+ \frac{T_{11} - T_{22}}{2} &\approx P_m(x - x_0, y - y_0) + \cdots \\
+ T_{12} &\approx Q_m(x - x_0, y - y_0) + \cdots
+\end{matrix}\right.
+\end{align}
+
+\subsection{Analytical Examples, see pages 134 - 139}
+\begin{align*}
+T&=
+\begin{bmatrix}
+    \frac{x^2 + 4xy + y^2}{2} &  -x^2 + y^2 \\
+    -x^2 + y^2  &  \frac{-x^2 - 4xy - y^2}{2}
+\end{bmatrix},
+\end{align*}
+which has a multiple degenerate point (see definition : \ref{definition}) at the origin.
+\\
+\\
+$\left<\mbox{ sepratrices of multiple degenerate points are described in page 131 - 133
+}\right>$
+\\
+\\
+More such examples are detailed in the same section, with description of the sepratrices
+that occur.
+
+\section{Algorithm to Extract the Topology of a Tensor Field}
+In tensor fields different types of degenerate points can occur that correspond to different
+local patterns of neighboring hyperstreamlines. These patterns are determined by the tensor
+gradients at degenerate point positions.
+\\
+\\
+Let $\vec{x}_0 = (x_0,y_0)$ be an isolated degenerate point. Assuming that the functions 
+$T_{11}(\vec{x}) - T_{22}(\vec{x})$ and $T_{12}(\vec{x})$ are analytic, we can expand tensor
+components in Taylor series around $\vec{x}_0$.
+\\
+$\vdots$
+\\
+$\vdots$
+\\
+$\left<\mbox{after some simplifications, we end up with the following - see pages
+ 113-114}\right>$
+\begin{align}
+\left\{\begin{matrix}
+ \frac{T_{11} - T_{22}}{2} &\approx a(x - x_0) + b(y - y_0) + \cdots \\
+ T_{12} &\approx c(x - x_0) + d(y - y_0) + \cdots
+\end{matrix}\right.
+\end{align}
+where 
+\begin{align*}
+a &\equiv \frac{1}{2} \left.\frac{\partial (T_{11} - T_{22})}{\partial x}\right|_{x_0} &
+b &\equiv \frac{1}{2} \left.\frac{\partial (T_{11} - T_{22})}{\partial y}\right|_{y_0} \\
+c &\equiv \frac{1}{2} \left.\frac{\partial T_{12}}{\partial x}\right|_{x_0} &
+d &\equiv \frac{1}{2} \left.\frac{\partial T_{12}}{\partial y}\right|_{y_0}
+\end{align*}
+An important quantity for characterizing degenerate points is
+\begin{align}
+\delta = ad - bc
+\end{align}
+which is invariant under rotation.$\left<\mbox{See pages 114 - 115 for proof.}\right>$
+\begin{defn}[Simple and Multiple Degenerate Points] \label{definition}
+Let $\vec{x}_0$ be an isolated degenerate point of a tensor field T $\in C^1(E)$, where $E$ is
+an open subset of $\mathbf{R}^2$, and let $\delta = ad - bc$ be the corresponding third-order
+invariant. Then, $\vec{x}_0$ is
+\begin{itemize}
+\item a simple degenerate point iff $\delta \neq 0$, or
+\item a multiple degenerate point iff $\delta = 0$.
+\end{itemize}
+\end{defn}
+
+\begin{thm}
+The angle $\theta_k$ between the x-axis and the sepratrices $s_k$ are obtained by computing
+the real roots $z_k$ of the cubic equation
+\begin{align} \label{cubic}
+dz^3 + (c + 2b)z^2 + (2a - d)z - c = 0,
+\end{align}
+by inverting the relation $z_k = tan \theta_k$, and by keeping only those angles that lie along 
+the boundary of a hyperbolic sector.
+\end{thm}
+$\left<\mbox{for the whole theorem - see page 120}\right>$
+
+\subsection{The Algorithm - see page 154}
+The following algorithm handles simple degenerate points only :
+\begin{enumerate}
+\item locate degenerate points by searching for solutions to \eqref{degenerate_cond} in
+every grid cell;
+\item  classify each degenerate point as a trisector $(\delta < 0 )$ or a wedge point
+$(\delta > 0 )$ by evaluating a,b,c,d and computing $\delta = ad - bc$;
+\item select an eigenvector field;
+\item solve \eqref{cubic} to find the directions of the three sepratrices $(s_1,s_2,s_3)$ at each
+trisector point; likewise, extract sepratrices $(s_1,s_2)$ at wedge points where \eqref{cubic}
+admits three real roots and extract the unique sepratrix at wedge points where \eqref{cubic}
+has only one real root;
+\item integrate hyperstreamlines along the sepratrices; terminate the trajectories wherever
+they leave the domain, or impinge on the parabolic sector of a wedge point.
+\end{enumerate}
+
+
+\begin{thebibliography}{9}
+\bibitem{1}
+	T. Delmarcelle, 1994.
+	\emph{The Visualization of Second-Order Tensor Fields}.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,132 @@
+% !TEX spellcheck = en
+\documentclass[12pt,twoside,onecolumn]{article}
+\usepackage{a4}
+\usepackage[margin=0.95in]{geometry}
+\usepackage[latin1]{inputenc}  % Bruk latin-1 tegnsett
+\usepackage[UKenglish]{babel} 
+\usepackage{url}
+\usepackage{subfiles} % Handeling multiple chapters on seperate files.
+\usepackage{amsmath} % math package
+\usepackage{relsize} % to use larger math symbols
+\usepackage{hyperref}  % for making links click-able
+\usepackage{amssymb} % for using blackboard letters (e.g R for real numbers)
+\usepackage{tocbibind} % for adding the reference section in table of contents
+\usepackage{graphicx}  % for displaying pictures
+% \usepackage{caption}
+% \usepackage{subcaption}
+\usepackage{subfig} % for displaying multiple pictures with subfloats and float.
+\usepackage[procnames]{listings} % for code display
+\usepackage{xcolor} % for color settings in listings
+\usepackage{amsthm} % for creating definitions and theorems
+% \usepackage{fancyhdr} % for adding fancy heading in each page
+% \pagestyle{fancy} % adds heading in each page
+\usepackage{algorithm} % for displaying algorithms
+\usepackage[noend]{algpseudocode} % pseudocode in algorithm enviromnent
+\usepackage{fixltx2e} % for text in sub script
+\usepackage{perpage} % for resetting footnote counter at each page
+\usepackage{tikz} % for drawing
+\usetikzlibrary{matrix,positioning}
+\usepackage{adjustbox} % for resizing tables
+
+\MakePerPage{footnote} %the perpage package command
+
+\newtheorem*{mytheo}{Theorem}
+\newtheorem*{mydef}{Definition} % used later when creating definitions which are unnumbered
+
+% lisitngs-settings :
+\lstdefinestyle{Python}
+	{language=Python,
+	numbers=left, 
+        numberstyle=\tiny, 
+        numbersep=5pt}
+
+\lstdefinestyle{IPython} % setting used for IPython scripts
+	{numbers=none}
+
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,105}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+
+\lstset{
+      	xleftmargin=.25in,
+	xrightmargin=.25in,
+	breaklines=true,
+	basicstyle=\ttfamily\scriptsize,
+        keywordstyle=\color{keywords},
+        commentstyle=\color{comments},
+        stringstyle=\color{red},
+	showstringspaces=false,
+	columns=fullflexible,
+	%identifierstyle=\color{green},
+	procnamekeys={def,class}}
+
+\makeatletter
+\def\@documentnocite#1{\@bsphack
+  \@for\@citeb:=#1\do{%
+    \edef\@citeb{\expandafter\@firstofone\@citeb}%
+    \if@filesw\immediate\write\@auxout{\string\citation{\@citeb}}\fi
+    \@ifundefined{b@\@citeb}{\G@refundefinedtrue
+      \@latex@warning{Citation `\@citeb' undefined}}{}}%
+  \@esphack}
+\AtBeginDocument{\let\nocite\@documentnocite}
+\makeatother
+
+% change proof environment by having proof written as Example in bold
+\newenvironment{example}[1][\proofname]{%
+  \proof[\normalfont \textbf{Example}]%
+}{\endproof}
+
+\begin{document}
+\pagenumbering{roman} 
+% Front page with uio logo - remember to fix the logo
+\subfile{frontpage}
+\newpage\null\newpage
+
+% Table of content, list of tables, list of figueres, and preface.
+\subfile{acknowledgements}
+\newpage\null
+\tableofcontents{}
+\listoffigures{}
+\listoftables{}
+
+% Start first Part : Theory
+\newpage\null
+\pagenumbering{arabic} 
+\part{Theory}
+
+\newpage
+% Introduction
+\subfile{chapter1}
+
+\newpage\null
+% Tensor Fields
+\subfile{chapter2}
+
+% Start next Part : Method and Results
+\newpage\null
+\part{Method \& Results}
+
+\newpage
+% Visualization : state-of-art
+\subfile{chapter3}
+
+\newpage\null
+% Implementation
+\subfile{chapter4}
+
+\newpage\null
+% Results & Interpretation
+\subfile{chapter5}
+
+\newpage\null
+% Conclusion
+\subfile{conclusion}
+% Appendix
+\newpage\null
+\subfile{append}
+% Biblography
+\newpage\null
+\subfile{biblo}
+\newpage\null\thispagestyle{empty}\newpage
+\end{document}
